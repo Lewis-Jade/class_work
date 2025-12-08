@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">CoffeShop</string>
+    <string name="mmust_registration_app">MMUST Registration App</string>
+    <string name="welcome">Welcome!</string>
+    <string name="get_started">Get Started</string>
+    <string name="student_admission">Student Admission</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="school">school</string>
+    <string name="department">Department</string>
+    <string name="program">Program</string>
+    <string name="register">Register</string>
+    <string name="confirm_details">Confirm Details</string>
+    <string name="confirm_first_name">Name:</string>
+    <string name="conf_last_name">Last Name:</string>
+    <string name="conf_school">School</string>
+    <string name="confirm_school">School:</string>
+    <string name="cnf_department">Department:</string>
+    <string name="cnf_program">Program</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
+    <string name="confrm_prg">Program:</string>
+    <string name="phone">Phone</string>
+    <string name="phonenu">Phone:</string>
+    <string name="age">age</string>
+
+</resources>
