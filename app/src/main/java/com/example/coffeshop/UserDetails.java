@@ -25,7 +25,8 @@ import com.google.firebase.database.ValueEventListener;
 public class UserDetails extends AppCompatActivity {
     EditText phone;
     TextView tvName,tvSchool,tvDepartment,tvProgram,tvAge;
-    String age,school,department,program,phoneNumber,name;
+    String school,department,program,phoneNumber,name;
+    int age;
     Button btnRegister,btnSearch;
     FirebaseDatabase db;
     DatabaseReference reference;
@@ -53,39 +54,55 @@ public class UserDetails extends AppCompatActivity {
       //read from database
 
         btnSearch.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View view) {
+                btnSearch.setText("Searching....");
+                btnSearch.setEnabled(false);
                 phoneNumber = phone.getText().toString().trim();
-                reference.addValueEventListener(new ValueEventListener() {
+
+                if(phoneNumber.isEmpty()){
+                    phone.setError("Please enter phone number!.....");
+                    btnSearch.setText("Searching");
+                    btnSearch.setEnabled(true);
+                    return;
+                }
+                reference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                     if(snapshot.hasChild(phoneNumber)){
+                        if (snapshot.hasChild(phoneNumber)) {
 
-                         name = snapshot.child(phoneNumber).child("Name").getValue(String.class);
-                         school = snapshot.child(phoneNumber).child("School").getValue(String.class);
-                         department = snapshot.child(phoneNumber).child("Department").getValue(String.class);
-                         program = snapshot.child(phoneNumber).child("Program").getValue(String.class);
-                         //age= snapshot.child(phoneNumber).child("Age").getValue(String.class);
+                            name = snapshot.child(phoneNumber).child("Name").getValue(String.class);
+                            school = snapshot.child(phoneNumber).child("School").getValue(String.class);
+                            department = snapshot.child(phoneNumber).child("Department").getValue(String.class);
+                            program = snapshot.child(phoneNumber).child("Program").getValue(String.class);
+                            Integer age = snapshot.child(phoneNumber).child("Age").getValue(Integer.class);
 
-                         //display the results
+                            btnSearch.setText("Success 😀✔");
+                            btnSearch.setBackgroundColor(
+                                    getResources().getColor(android.R.color.holo_green_dark)
+                            );
+                            btnSearch.setEnabled(true);
 
-                         tvName.setText(name);
-                         tvSchool.setText(school);
-                         tvDepartment.setText(department);
-                         tvProgram.setText(program);
-                        // tvAge.setText(age);
+                            tvName.setText(name);
+                            tvSchool.setText(school);
+                            tvDepartment.setText(department);
+                            tvProgram.setText(program);
+                            tvAge.setText(age != null ? String.valueOf(age) : "N/A");
 
-                     }else {
-                         Toast.makeText(UserDetails.this, "Student does not Exist!..please Register", Toast.LENGTH_SHORT).show();
-                     }
-
+                        } else {
+                            phone.setError("Student does not exist!");
+                            btnSearch.setText("Failed 😟");
+                            btnSearch.setBackgroundColor(
+                                    getResources().getColor(android.R.color.holo_red_dark)
+                            );
+                            btnSearch.setEnabled(true);
+                        }
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-
-
+                        btnSearch.setText("Error");
+                        btnSearch.setEnabled(true);
                     }
                 });
             }

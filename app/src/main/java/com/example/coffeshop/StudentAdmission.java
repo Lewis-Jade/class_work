@@ -19,7 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class StudentAdmission extends AppCompatActivity {
     EditText firstName,lastName,school,department,program,phone,age;
     String getFirstName,getLastName,getSchool,getDepartment,getProgram,getPhone,getAge;
-     Button register,btnProfile;
+     Button register;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,7 @@ public class StudentAdmission extends AppCompatActivity {
         phone = findViewById(R.id.phone);
         age = findViewById(R.id.age);
 
-        btnProfile = findViewById(R.id.bv_profile);
+
         //set onclick listener
         //the firebase database
 
@@ -87,17 +87,8 @@ public class StudentAdmission extends AppCompatActivity {
         });
 
 
-        btnProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                fetchData("Loading....");
-            }
-        });
+
 
     }
-    private void fetchData(String loader){
 
-        btnProfile.setText(loader);
-
-    }
 }
