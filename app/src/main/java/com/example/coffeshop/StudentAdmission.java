@@ -13,10 +13,14 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class StudentAdmission extends AppCompatActivity {
     EditText firstName,lastName,school,department,program,phone,age;
     String getFirstName,getLastName,getSchool,getDepartment,getProgram,getPhone,getAge;
-     Button register;
+     Button register,btnProfile;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,11 +35,18 @@ public class StudentAdmission extends AppCompatActivity {
         register = findViewById(R.id.bv_register);
         phone = findViewById(R.id.phone);
         age = findViewById(R.id.age);
+
+        btnProfile = findViewById(R.id.bv_profile);
         //set onclick listener
+        //the firebase database
+
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                //using intents
+
                 getFirstName = firstName.getText().toString().trim();
                 getLastName = lastName.getText().toString().trim();
                 getSchool = school.getText().toString().trim();
@@ -75,6 +86,18 @@ public class StudentAdmission extends AppCompatActivity {
             }
         });
 
+
+        btnProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fetchData("Loading....");
+            }
+        });
+
+    }
+    private void fetchData(String loader){
+
+        btnProfile.setText(loader);
 
     }
 }

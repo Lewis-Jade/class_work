@@ -13,17 +13,20 @@
         android:theme="@style/Theme.CoffeShop"
         tools:targetApi="31">
         <activity
-            android:name=".ConfirmDetails"
-            android:theme="@style/Theme.CoffeShop"
+            android:name=".UserDetails"
             android:exported="false" />
+        <activity
+            android:name=".ConfirmDetails"
+            android:exported="false"
+            android:theme="@style/Theme.CoffeShop" />
         <activity
             android:name=".StudentAdmission"
-            android:theme="@style/Theme.CoffeShop"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.CoffeShop" />
         <activity
             android:name=".MainActivity"
-            android:theme="@style/Theme.CoffeShop"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.CoffeShop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

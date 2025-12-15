@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "665153267632",
+    "project_id": "admmissionapp",
+    "storage_bucket": "admmissionapp.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:665153267632:android:5df2eb85a2fc157a951875",
+        "android_client_info": {
+          "package_name": "com.example.coffeshop"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPbA8fQvOgZJscP1Do0Vjdvk-MramFnM0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

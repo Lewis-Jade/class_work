@@ -10,6 +10,7 @@ import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,12 +18,21 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+
 public class ConfirmDetails extends AppCompatActivity {
 
     TextView tvName,tvSchool,tvDepartment,tvProgram,tvPhone,tvAge;
     String firstName,lastName,school,department,program,phone,name;
     Button btnCancel,btnConfirm;
     int getAge;
+    FirebaseDatabase database;
+    DatabaseReference reference;
+
+
     @SuppressLint({"SetTextI18n", "MissingInflatedId"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +45,9 @@ public class ConfirmDetails extends AppCompatActivity {
             return insets;
         });
 
+        database = FirebaseDatabase.getInstance();
+        reference = database.getReference("StudentsRecords");
+
        tvName = findViewById(R.id.tv_full_name);
        tvSchool = findViewById(R.id.tv_school);
        tvDepartment = findViewById(R.id.tv_department);
@@ -43,6 +56,9 @@ public class ConfirmDetails extends AppCompatActivity {
        tvAge = findViewById(R.id.tv_age);
        btnCancel = findViewById(R.id.bv_cancel);
        btnConfirm = findViewById(R.id.bv_confirm);
+
+
+
 
 
 
@@ -67,14 +83,43 @@ public class ConfirmDetails extends AppCompatActivity {
 
 
 
+
      setBtnCancel();
+
 
       btnConfirm.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View view) {
-              sendConfirmMail();
+              submitToFireBase();
+              //sendConfirmMail();
           }
       });
+
+
+
+    }
+
+    public void submitToFireBase() {
+        btnConfirm.setText("sending...");
+        btnConfirm.setEnabled(false);
+        HashMap<String,Object> data = new HashMap<>();
+        data.put("Name",name);
+        data.put("School",school);
+        data.put("Department",department);
+        data.put("Program",program);
+        data.put("Age",getAge);
+
+        reference.child(phone).setValue(data).addOnSuccessListener(unused -> {
+            btnConfirm.setText("send😀✔");
+            btnConfirm.setBackgroundColor(getResources().getColor(android.R.color.holo_green_dark));
+            btnConfirm.setEnabled(true);
+        }).addOnFailureListener(e ->{
+            btnConfirm.setText("Failed!😟");
+            btnConfirm.setBackgroundColor(getResources().getColor(android.R.color.holo_red_dark));
+            btnConfirm.setEnabled(true);
+            Toast.makeText(this,"Error occurred! "+ e.getMessage(),Toast.LENGTH_SHORT).show();
+        });
+
 
 
     }
@@ -99,6 +144,7 @@ public class ConfirmDetails extends AppCompatActivity {
 
     private void setBtnCancel() {
         btnCancel.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
                 finish();
@@ -107,4 +153,10 @@ public class ConfirmDetails extends AppCompatActivity {
     }
 
 
-}
+
+
+
+
+    }
+
+
